@@ -30,6 +30,7 @@ CFLAGS += -Wconversion # neg int const implicitly converted to uint
 CFLAGS += -fsingle-precision-constant
 CFLAGS += -fomit-frame-pointer # do not use fp if not needed
 CFLAGS += -ffunction-sections -fdata-sections
+CFLAGS += --std=c99
 
 # Chooses the relevant FPU option
 #CFLAGS += -mfloat-abi=soft # No FP
