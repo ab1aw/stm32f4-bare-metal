@@ -33,7 +33,7 @@ CFLAGS += -ffunction-sections -fdata-sections
 
 # Chooses the relevant FPU option
 #CFLAGS += -mfloat-abi=soft # No FP
-CFLAGS += -mfloat-abi=softfp -mfpu=fpv4-sp-d16 # Soft FP
+CFLAGS += -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -lang-c-c++-comments # Soft FP
 #CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16 # Hard FP
 
 LDFLAGS += -mfloat-abi=softfp -mfpu=fpv4-sp-d16 # Soft FP
@@ -97,6 +97,17 @@ debug:
 
 burn:
 	@st-flash write $(TARGET).bin 0x8000000
+
+flash:
+	st-flash write $(TARGET).bin 0x8000000 || \
+	openocd -f interface/stlink-v2.cfg \
+		-f target/stm32f4x_stlink.cfg \
+		-c "init" \
+		-c "reset init" \
+		-c "flash probe 0" \
+		-c "flash info 0" \
+		-c "flash write_image erase $(TARGET).bin 0x08000000" \
+		-c "reset run" -c "shutdown"
 
 clean:
 	@echo "Cleaning..."

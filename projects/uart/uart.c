@@ -200,17 +200,18 @@ int main(void)
 	// enable usart2 - UE, bit 13
 	USART2->CR1 |= (1 << 13);
 
-	const uint8_t brand[] = "furkan.space\n\r";
-
+	const uint8_t brand[] = "AB1AW> furkan.space\n\r";
+	uint32_t i1;
+	int i2;
 	while(1)
 	{
-		for (uint32_t i=0; i<sizeof(brand); i++){
+		for (i1=0; i1<sizeof(brand); i1++){
 			// send character
-			USART2->DR = brand[i];
+			USART2->DR = brand[i1];
 			// wait for transmit complete
-			while(!(USART2->SR & (1 << 6)));
+			while(!(USART2->SR & (11 << 6)));
 			// slow down
-			for(int i=0; i<1000000; i++);
+			for(i2=0; i2<1000000; i2++);
 		}
 	}
 
