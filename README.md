@@ -41,7 +41,7 @@ If you see any errors about command not found, make sure the toolchain binaries 
 
 ## Program
 
-Run `make burn` to program the chip.
+Run `make flash' (not 'make burn') to program the chip. See the modification in the file projects/armf4.mk for this enhancement to support programming the board using ST-LINK.
 ```
 ...
 .. Flash written and verified! jolly good!
