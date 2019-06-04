@@ -12,10 +12,10 @@ Common startup functions are moved to `include/system_stm32f4xx.c` to include in
 - Clone the project using `git clone --recurse-submodules https://github.com/fcayci/stm32f4-bare-metal`
 with the included external tools/libraries such as CMSIS repo and any additional libraries some of the projects use.
 - You will need a **toolchain** (for compiler and binutils). Get one free from - [GNU Arm Embedded Toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads)
+- For my fork of this repository I am building with CygWin tools, ST-LINK, OpenOCD [OpenOCD-20181130], and gcc compiler chain 4_8-2013q4-major/arm-none-eabi [https://launchpad.net/gcc-arm-embedded/4.8/4.8-2013-q4-major]
 - *For windows only*, you will need **make** tool. You can just get the make tool from [gnuwin32](http://gnuwin32.sourceforge.net/packages/make.htm). Alternatively you can install the minimalist GNU tools for windows from [mingw](https://mingw-w64.org/) and [MSYS](https://www.msys2.org/)
 - For the **programmer/debugger**, you can use - [stlink](https://github.com/texane/stlink) or [OpenOCD](http://openocd.org/). Though only stlink utility support is added.
 - You can use your favorite code editor to view/edit the contents. Here is an open source one: [Visual Studio Code](https://code.visualstudio.com/).
-- For my fork of this repository I am building with CygWin tools, ST-LINK, OpenOCD [OpenOCD-20181130], and compiler chain 4_8-2013q4-major/arm-none-eabi
 
 ## Compile
 
