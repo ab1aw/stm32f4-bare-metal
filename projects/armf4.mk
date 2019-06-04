@@ -3,8 +3,13 @@ CMSIS = ../../libs/CMSIS_5
 SRCS += ../../include/system_stm32f4xx.c
 
 #OBJS = $(SRCS:.c=.o)
+#CPP_OBJS = $(CPP_SRCS:.cpp=.o)
+
 OBJS = $(addprefix ,$(notdir $(SRCS:.c=.o)))
+CPP_OBJS = $(addprefix ,$(notdir $(CPP_SRCS:.cpp=.o)))
+
 vpath %.c $(sort $(dir $(SRCS)))
+vpath %.cpp $(sort $(dir $(CPP_SRCS)))
 
 INCLUDES += -I.
 INCLUDES += -I../../include
@@ -30,7 +35,7 @@ CFLAGS += -Wconversion # neg int const implicitly converted to uint
 CFLAGS += -fsingle-precision-constant
 CFLAGS += -fomit-frame-pointer # do not use fp if not needed
 CFLAGS += -ffunction-sections -fdata-sections
-CFLAGS += --std=c99
+#CFLAGS += --std=c99
 
 # Chooses the relevant FPU option
 #CFLAGS += -mfloat-abi=soft # No FP
@@ -48,7 +53,7 @@ LDFLAGS += -Wl,--gc-sections # linker garbage collector
 LDFLAGS += -Wl,-Map=$(TARGET).map #generate map file
 LDFLAGS += -T$(LINKER_SCRIPT)
 LDFLAGS += $(LIBS)
-LDFLAGS += -lc -lnosys
+LDFLAGS += -lc -lstdc++_s  -lnosys
 
 CROSS_COMPILE = arm-none-eabi-
 CC = $(CROSS_COMPILE)gcc
@@ -57,18 +62,23 @@ OBJDUMP = $(CROSS_COMPILE)objdump
 OBJCOPY = $(CROSS_COMPILE)objcopy
 SIZE = $(CROSS_COMPILE)size
 DBG = $(CROSS_COMPILE)gdb
+CPP = $(CROSS_COMPILE)g++
 
 all: clean $(SRCS) build size
 	@echo "Successfully finished..."
 
 build: $(TARGET).elf $(TARGET).bin $(TARGET).lst
 
-$(TARGET).elf: $(OBJS)
-	@$(CC) $(OBJS) $(LDFLAGS) -o $@
+$(TARGET).elf: $(OBJS) $(CPP_OBJS)
+	@$(CC) $(OBJS) $(CPP_OBJS) $(LDFLAGS) -o $@
 
 %.o: %.c
 	@echo "Building" $<
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+%.o: %.cpp
+	@echo "Building" $<
+	@$(CPP) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 %.o: %.s
 	@echo "Building" $<
