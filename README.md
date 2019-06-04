@@ -77,7 +77,13 @@ Alternatively, you can install *Cortex-Debug* plug-in from marus25 on Visual Stu
 * [wwdg](projects/wwdg/) - Window Watchdog example
 * [itm](projects/itm/) - Message sending through CoreSight ITM port 0. Install [OpenOCD](http://openocd.org/) to capture the message
 * [dma](projects/dma/) - Example DMA transfer using memory-to-memory mode
+
+## C++ Projects
+
+These projects demonstrate simple implementations of various C++ constructs executing on a a bare metal STM32F407-DISC board. They are all C++ variations of the 'C' blinky project described above. Each C++ project builds upon the previous C++ projects to demonstrate increasingly more complex embedded C++ techniques.
+
 * [cpp](projects/cpp/) - C++ version of the blinky project. Used to demonstrate C++ compilation.
 * [cpp2](projects/cpp2/) - Multi-file C++ version of the blinky project. Used to demonstrate linking with two source files.
-* [cpp3](projects/cpp3/) - Mixed C/C++ version of the blinky project. Used to demonstrate calling/linking across C/C++ APIs.
+* [cpp3](projects/cpp3/) - Mixed C/C++ version of the blinky project. Used to demonstrate calling/linking across C/C++ APIs. Calls objects are static (no use of new/delete).
+* [cpp4](projects/cpp4/) - Mixed C/C++ version of the blinky project. Use new/delete to dynamically instantiate and destroy class objects.
 
