@@ -7,3 +7,9 @@ all:
 
 clean:
 	@for d in $(subdirs); do make -C $$d $@; done
+	
+cpp-projects : 
+	make -C cpp
+	make -C cpp2
+	make -C cpp3
+	make -C cpp4

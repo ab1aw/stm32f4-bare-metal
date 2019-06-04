@@ -53,8 +53,8 @@ LDFLAGS += -Wl,--gc-sections # linker garbage collector
 LDFLAGS += -Wl,-Map=$(TARGET).map #generate map file
 LDFLAGS += -T$(LINKER_SCRIPT)
 LDFLAGS += $(LIBS)
-#LDFLAGS += -lc -lstdc++_s  -lnosys
-LDFLAGS += -lc -lnosys
+LDFLAGS += -lc -lstdc++_s  -lnosys
+#LDFLAGS += -lc -lnosys
 
 CROSS_COMPILE = arm-none-eabi-
 CC = $(CROSS_COMPILE)gcc
