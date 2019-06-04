@@ -47,7 +47,7 @@ Run `make flash' (not 'make burn') to program the chip. See the modification in 
 .. Flash written and verified! jolly good!
 ```
 
-Install the [ST LINK](https://www.st.com/en/development-tools/st-link-v2.html) drivers if you cannot see your board when `make burn` is run.
+Install the [ST LINK](https://www.st.com/en/development-tools/st-link-v2.html) drivers if you cannot see your board when `make flash` is run.
 
 ## Disassemble
 
