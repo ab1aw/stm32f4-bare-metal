@@ -77,3 +77,7 @@ Alternatively, you can install *Cortex-Debug* plug-in from marus25 on Visual Stu
 * [wwdg](projects/wwdg/) - Window Watchdog example
 * [itm](projects/itm/) - Message sending through CoreSight ITM port 0. Install [OpenOCD](http://openocd.org/) to capture the message
 * [dma](projects/dma/) - Example DMA transfer using memory-to-memory mode
+* [cpp](projects/cpp/) - C++ version of the blinky project. Used to demonstrate C++ compilation.
+* [cpp2](projects/cpp2/) - Multi-file C++ version of the blinky project. Used to demonstrate linking with two source files.
+* [cpp3](projects/cpp3/) - Mixed C/C++ version of the blinky project. Used to demonstrate calling/linking across C/C++ APIs.
+
