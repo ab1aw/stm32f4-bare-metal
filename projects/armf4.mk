@@ -47,13 +47,14 @@ LDFLAGS += -mfloat-abi=softfp -mfpu=fpv4-sp-d16 # Soft FP
 
 LDFLAGS += -march=armv7e-m # processor setup
 LDFLAGS += -nostartfiles # no start files are used
-LDFLAGS += --specs=nano.specs
-#LDFLAGS += --specs=nosys.specs
+#LDFLAGS += --specs=nano.specs
+LDFLAGS += --specs=nosys.specs
 LDFLAGS += -Wl,--gc-sections # linker garbage collector
 LDFLAGS += -Wl,-Map=$(TARGET).map #generate map file
 LDFLAGS += -T$(LINKER_SCRIPT)
 LDFLAGS += $(LIBS)
-LDFLAGS += -lc -lstdc++_s  -lnosys
+#LDFLAGS += -lc -lstdc++_s  -lnosys
+LDFLAGS += -lc -lnosys
 
 CROSS_COMPILE = arm-none-eabi-
 CC = $(CROSS_COMPILE)gcc
@@ -70,27 +71,31 @@ all: clean $(SRCS) build size
 build: $(TARGET).elf $(TARGET).bin $(TARGET).lst
 
 $(TARGET).elf: $(OBJS) $(CPP_OBJS)
-	@$(CC) $(OBJS) $(CPP_OBJS) $(LDFLAGS) -o $@
+	@echo -e "\n\nBuilding" $@
+	@$(CC) -v $(OBJS) $(CPP_OBJS) $(LDFLAGS) -o $@
 
 %.o: %.c
-	@echo "Building" $<
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@echo -e "\n\nBuilding" $@
+	@$(CC) -v $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 %.o: %.cpp
-	@echo "Building" $<
-	@$(CPP) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@echo -e "\n\nBuilding" $@
+	@$(CPP) -v $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 %.o: %.s
-	@echo "Building" $<
+	@echo -e "\n\nBuilding" $@
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 %.hex: %.elf
+	@echo -e "\n\nBuilding" $@
 	@$(OBJCOPY) -O ihex $< $@
 
 %.bin: %.elf
+	@echo -e "\n\nBuilding" $@
 	@$(OBJCOPY) -O binary $< $@
 
 %.lst: %.elf
+	@echo -e "\n\nBuilding" $@
 	@$(OBJDUMP) -x -S $(TARGET).elf > $@
 
 size: $(TARGET).elf

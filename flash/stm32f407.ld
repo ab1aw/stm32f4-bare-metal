@@ -72,6 +72,12 @@ SECTIONS
 		__exidx_end = .;
 	} >ROM_region
 
+	.ARM.extab : {
+		__extab_start = .;
+		*(.ARM.extab* .gnu.linkonce.armextab.*)
+		__extab_end = .;
+	} >ROM_region
+
 	.heap (COPY):
 	{
 		__end__ = .;
