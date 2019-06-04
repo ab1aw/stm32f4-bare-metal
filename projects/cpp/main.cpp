@@ -48,15 +48,15 @@ void delay(volatile uint32_t);
 *************************************************/
 typedef void (* const intfunc)(void);
 
-// get the stack pointer location from linker
+/* get the stack pointer location from linker */
 extern unsigned long __stack;
 
 
 typedef struct duck duck;
 
-duck* new_duck(int feet);
-void delete_duck(duck* d);
-void duck_quack(duck* d, float volume);
+duck* new_duck(void);
+/*void delete_duck(duck* d);*/
+void duck_quack(duck* d);
 
 #ifdef __cplusplus
 }
@@ -67,26 +67,38 @@ struct duck { };
 
 class Duck : public duck {
 public:
-    Duck(int feet);
+    Duck();
     ~Duck();
-
-    void quack(float volume);
+    void quack();
 };
+
+
+__attribute__ ((section(".text")))
+Duck::Duck() {}
+
+__attribute__ ((section(".text")))
+Duck::~Duck() {}
+
+__attribute__ ((section(".text")))
+void Duck::quack() {}
+
+__attribute__ ((section(".data")))
+Duck duck_obj;
 
 inline Duck* real(duck* d) { return static_cast<Duck*>(d); }
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-duck* new_duck(int feet) { return new Duck(feet); }
-void delete_duck(duck* d) { delete real(d); }
-void duck_quack(duck* d, float volume) { real(d)->quack(volume); }
+duck* new_duck() { return &duck_obj; }
+/*void delete_duck(duck* d) { delete real(d); }*/
+void duck_quack(duck* d) { real(d)->quack(); }
 
 
-// attribute puts table in beginning of .vectors section
+/* attribute puts table in beginning of .vectors section
 //   which is the beginning of .text section in the linker script
 // Add other vectors -in order- here
-// Vector table can be found on page 372 in RM0090
+// Vector table can be found on page 372 in RM0090 */
 __attribute__ ((section(".vectors")))
 void (* const vector_table[])(void) = {
 	(intfunc)((unsigned long)&__stack), /* 0x000 Stack Pointer */
@@ -112,7 +124,7 @@ void (* const vector_table[])(void) = {
 *************************************************/
 void Default_Handler(void)
 {
-	for (;;);  // Wait forever
+	for (;;);  /* Wait forever */
 }
 
 #ifdef __cplusplus
@@ -129,8 +141,8 @@ int main(void)
 	 * Sine LEDs are connected to GPIOD, we need  to enable it
 	 */
 
-	/* Enable GPIOD clock (AHB1ENR: bit 3) */
-	// AHB1ENR: XXXX XXXX XXXX XXXX XXXX XXXX XXXX 1XXX
+	/* Enable GPIOD clock (AHB1ENR: bit 3) 
+	// AHB1ENR: XXXX XXXX XXXX XXXX XXXX XXXX XXXX 1XXX */
 	RCC->AHB1ENR |= 0x00000008;
 
 	// Note: |= means read the contents of the left operand, or it with
@@ -175,8 +187,8 @@ int main(void)
 
 
 	duck* d = 0;
-	d = new_duck(2);
-	//duck_quack(d, 4);
+	d = new_duck();
+	duck_quack(d);
 	//delete_duck(d);
 
 
@@ -198,3 +210,6 @@ void delay(volatile uint32_t s)
 		// Do nothing
 	}
 }
+
+static void* __dso_handle;
+

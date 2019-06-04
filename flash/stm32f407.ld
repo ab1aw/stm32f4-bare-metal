@@ -66,6 +66,12 @@ SECTIONS
 		__bss_end__ = .;
 	} > RAM
 
+	.ARM.exidx : {
+		__exidx_start = .;
+		*(.ARM.exidx* .gnu.linkonce.armexidx.*)
+		__exidx_end = .;
+	} >ROM_region
+
 	.heap (COPY):
 	{
 		__end__ = .;
