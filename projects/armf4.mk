@@ -42,6 +42,9 @@ CFLAGS += -ffunction-sections -fdata-sections
 CFLAGS += -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -lang-c-c++-comments # Soft FP
 #CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16 # Hard FP
 
+# C++ size optimizations
+CPPFLAGS += -fno-rtti -fno-exceptions 
+
 LDFLAGS += -mfloat-abi=softfp -mfpu=fpv4-sp-d16 # Soft FP
 #LDFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16 # Hard FP
 
@@ -53,7 +56,7 @@ LDFLAGS += -Wl,--gc-sections # linker garbage collector
 LDFLAGS += -Wl,-Map=$(TARGET).map #generate map file
 LDFLAGS += -T$(LINKER_SCRIPT)
 LDFLAGS += $(LIBS)
-LDFLAGS += -lc -lstdc++_s  -lnosys
+LDFLAGS += -lc -lstdc++_s  -lnosys 
 #LDFLAGS += -lc -lnosys
 
 CROSS_COMPILE = arm-none-eabi-
@@ -80,7 +83,7 @@ $(TARGET).elf: $(OBJS) $(CPP_OBJS)
 
 %.o: %.cpp
 	@echo -e "\n\nBuilding" $@
-	@$(CPP) -v $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CPP) -v $(CFLAGS) $(CPPFLAGS) $(INCLUDES) -c $< -o $@
 
 %.o: %.s
 	@echo -e "\n\nBuilding" $@
