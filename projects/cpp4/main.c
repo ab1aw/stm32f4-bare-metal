@@ -34,11 +34,14 @@
 // create a led delay. Just a rough estimate
 // for one second delay
 #define LEDDELAY	1000000
+#define LEDDELAY_DEFAULT_HANDLER	200000
+#define LEDDELAY_CPP_FAULT_HANDLER	500000
 
 /*************************************************
 * function declarations
 *************************************************/
 void Default_Handler(void);
+void cpp_fault_handler(void);
 int main(void);
 void delay(volatile uint32_t);
 
@@ -60,7 +63,7 @@ void (* const vector_table[])(void) = {
 	(intfunc)((unsigned long)&__stack), /* 0x000 Stack Pointer */
 	Reset_Handler,                      /* 0x004 Reset         */
 	Default_Handler,                    /* 0x008 NMI           */
-	Default_Handler,                    /* 0x00C HardFault     */
+	cpp_fault_handler,                    /* 0x00C HardFault     */
 	Default_Handler,                    /* 0x010 MemManage     */
 	Default_Handler,                    /* 0x014 BusFault      */
 	Default_Handler,                    /* 0x018 UsageFault    */
@@ -80,7 +83,24 @@ void (* const vector_table[])(void) = {
 *************************************************/
 void Default_Handler(void)
 {
-	for (;;);  /* Wait forever */
+	while(1)
+	{
+		delay(LEDDELAY_DEFAULT_HANDLER);
+		GPIOD->ODR ^= (1 << 12);  // Toggle LED
+	}
+}
+
+
+/*************************************************
+* C++ fault handler
+*************************************************/
+void cpp_fault_handler(void)
+{
+	while(1)
+	{
+		delay(LEDDELAY_CPP_FAULT_HANDLER);
+		GPIOD->ODR ^= (1 << 12);  // Toggle LED
+	}
 }
 
 

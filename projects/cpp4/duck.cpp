@@ -49,6 +49,9 @@ inline Duck* real(duck* d) { return static_cast<Duck*>(d); }
 
 duck* new_duck()
 {
+	// There is not enough RAM to create sufficiently 
+	// large .bss and .stack areas to support C++ new() 
+	// dependence on underlying malloc and other services.
 	//duck_obj_p = new Duck;
 	duck_obj_p = &duck_obj;
 	return duck_obj_p;
