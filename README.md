@@ -95,3 +95,6 @@ These projects demonstrate simple implementations of various C++ constructs exec
 
 Building embedded C++ for ARM targets requires different techniques compared to implementing C++ application that target Windows or Linux. CPU and memory resource constraints are among the top concerns. See this [Guide to Reducing Code-size](http://blog.atollic.com/the-ultimate-guide-to-reducing-code-size-with-gnu-gcc-for-arm-cortex-m)
 
+Information about the [newlib-nano](https://www.st.com/content/ccc/resource/technical/document/user_manual/group1/cd/29/43/c5/36/c0/40/bb/Newlib_nano_readme/files/newlib-nano_readme.pdf/jcr:content/translations/en.newlib-nano_readme.pdf)
+
+
