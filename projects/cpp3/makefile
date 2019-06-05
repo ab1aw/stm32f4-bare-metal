@@ -5,7 +5,7 @@ CPP_SRCS = duck.cpp
 LINKER_SCRIPT = ../../flash/stm32f407.ld
 
 # Generate debug info
-DEBUG = 1
+#DEBUG = 1
 
 # Choose processor
 CDEFS  = -DSTM32F407xx

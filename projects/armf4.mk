@@ -21,7 +21,7 @@ CFLAGS += -mcpu=cortex-m4 -mthumb # processor setup
 CFLAGS += -O0 # optimization is off
 
 ifeq ($(DEBUG), 1)
-CFLAGS += -g -gdwarf-2 # generate debug info
+CFLAGS += -ggdb -gdwarf-2 # generate debug info
 # generate dependency info
 CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"
 endif
@@ -50,14 +50,24 @@ LDFLAGS += -mfloat-abi=softfp -mfpu=fpv4-sp-d16 # Soft FP
 
 LDFLAGS += -march=armv7e-m # processor setup
 LDFLAGS += -nostartfiles # no start files are used
-#LDFLAGS += --specs=nano.specs
+
+ifeq ($(DEBUG), 1)
+LDFLAGS += --specs=nano.specs
+else
 LDFLAGS += --specs=nosys.specs
+endif
+
 LDFLAGS += -Wl,--gc-sections # linker garbage collector
 LDFLAGS += -Wl,-Map=$(TARGET).map #generate map file
 LDFLAGS += -T$(LINKER_SCRIPT)
 LDFLAGS += $(LIBS)
+
+ifeq ($(DEBUG), 1)
+else
 LDFLAGS += -lc -lstdc++_s  -lnosys 
 #LDFLAGS += -lc -lnosys
+#LDFLAGS += -lnosys
+endif
 
 CROSS_COMPILE = arm-none-eabi-
 CC = $(CROSS_COMPILE)gcc
@@ -75,15 +85,15 @@ build: $(TARGET).elf $(TARGET).bin $(TARGET).lst
 
 $(TARGET).elf: $(OBJS) $(CPP_OBJS)
 	@echo -e "\n\nBuilding" $@
-	@$(CC) -v $(OBJS) $(CPP_OBJS) $(LDFLAGS) -o $@
+	@$(CC) -v $(OBJS) $(CPP_OBJS) $(LDFLAGS) $(PERFORMANCE_FLAGS) -o $@
 
 %.o: %.c
 	@echo -e "\n\nBuilding" $@
-	@$(CC) -v $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) -v $(CFLAGS) $(PERFORMANCE_FLAGS) $(INCLUDES) -c $< -o $@
 
 %.o: %.cpp
 	@echo -e "\n\nBuilding" $@
-	@$(CPP) -v $(CFLAGS) $(CPPFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CPP) -v $(CFLAGS) $(CPPFLAGS) $(PERFORMANCE_FLAGS) $(INCLUDES) -c $< -o $@
 
 %.o: %.s
 	@echo -e "\n\nBuilding" $@
