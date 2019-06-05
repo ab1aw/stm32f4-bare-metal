@@ -33,7 +33,7 @@
 
 // create a led delay. Just a rough estimate
 // for one second delay
-#define LEDDELAY	1000000
+#define LEDDELAY	400000
 
 /*************************************************
 * function declarations

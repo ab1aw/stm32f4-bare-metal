@@ -36,7 +36,7 @@ Duck::~Duck() {}
 //__attribute__ ((section(".text")))
 void Duck::quack() {}
 
-__attribute__ ((section(".data")))
+//__attribute__ ((section(".data")))
 static Duck duck_obj;
 
 
