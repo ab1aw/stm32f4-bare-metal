@@ -80,7 +80,7 @@ Alternatively, you can install *Cortex-Debug* plug-in from marus25 on Visual Stu
 
 ## C++ Projects
 
-* [blinky](projects/blinky-cpp/) - Straight-up re-implementation of the 'C' blinky project.
+* [blinky-cpp](projects/blinky-cpp/) - Straight-up re-implementation of the 'C' blinky project.
 
 ## C++ Experiments
 
@@ -89,7 +89,7 @@ These projects demonstrate simple implementations of various C++ constructs exec
 * [cpp](projects/cpp/) - C++ version of the blinky project. Used to demonstrate C++ compilation.
 * [cpp2](projects/cpp2/) - Multi-file C++ version of the blinky project. Used to demonstrate linking with two source files.
 * [cpp3](projects/cpp3/) - Mixed C/C++ version of the blinky project. Used to demonstrate calling/linking across C/C++ APIs. Calls objects are static (no use of new/delete).
-* [cpp4](projects/cpp4/) - Mixed C/C++ version of the blinky project. Use new/delete to dynamically instantiate and destroy class objects.
+* [cpp4](projects/cpp4/) - Mixed C/C++ version of the blinky project. This was an attempt to use new/delete to dynamically instantiate and destroy class objects. However, there appears to be insufficient RAM to support sufficiently large .bss and .stack sections for heap allocation of class objects.
 
 ## C++ Notes for targeting embedded platforms
 
