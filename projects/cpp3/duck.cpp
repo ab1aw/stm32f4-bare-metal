@@ -27,17 +27,17 @@ public:
 #endif
 
 
-__attribute__ ((section(".text")))
+//__attribute__ ((section(".text")))
 Duck::Duck() {}
 
-__attribute__ ((section(".text")))
+//__attribute__ ((section(".text")))
 Duck::~Duck() {}
 
-__attribute__ ((section(".text")))
+//__attribute__ ((section(".text")))
 void Duck::quack() {}
 
 __attribute__ ((section(".data")))
-Duck duck_obj;
+static Duck duck_obj;
 
 
 #ifdef __cplusplus
