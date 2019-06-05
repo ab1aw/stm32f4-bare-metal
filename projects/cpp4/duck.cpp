@@ -27,17 +27,18 @@ public:
 #endif
 
 
-__attribute__ ((section(".text")))
+//__attribute__ ((section(".text")))
 Duck::Duck() {}
 
-__attribute__ ((section(".text")))
+//__attribute__ ((section(".text")))
 Duck::~Duck() {}
 
-__attribute__ ((section(".text")))
+//__attribute__ ((section(".text")))
 void Duck::quack() {}
 
-__attribute__ ((section(".data")))
-Duck duck_obj;
+//__attribute__ ((section(".data")))
+static Duck duck_obj;
+static Duck *duck_obj_p;
 
 
 #ifdef __cplusplus
@@ -46,7 +47,13 @@ extern "C" {
 
 inline Duck* real(duck* d) { return static_cast<Duck*>(d); }
 
-duck* new_duck() { return new Duck; }
+duck* new_duck()
+{
+	//duck_obj_p = new Duck;
+	duck_obj_p = &duck_obj;
+	return duck_obj_p;
+}
+
 void delete_duck(duck* d) { delete real(d); }
 void duck_quack(duck* d) { real(d)->quack(); }
 

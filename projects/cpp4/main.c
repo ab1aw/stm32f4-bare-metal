@@ -138,12 +138,9 @@ int main(void)
 	// You can do the same with shifting
 	// GPIOD->ODR |= (1 << 12);
 
-
-	duck* d = 0;
-	d = new_duck();
+	duck* d = new_duck();
 	duck_quack(d);
-	delete_duck(d);
-
+	//delete_duck(d);
 
 	while(1)
 	{
