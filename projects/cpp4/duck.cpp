@@ -10,6 +10,14 @@ extern "C" {
 #endif
 
 
+// Default placement versions of operator new.
+inline void* operator new(unsigned int, void* __p) throw() { return __p; }
+inline void* operator new[](unsigned int, void* __p) throw() { return __p; }
+
+// Default placement versions of operator delete.
+inline void  operator delete  (void*, void*) throw() { }
+inline void  operator delete[](void*, void*) throw() { }
+
 #include "duck.hpp"
 
 
@@ -52,8 +60,11 @@ duck* new_duck()
 	// There is not enough RAM to create sufficiently 
 	// large .bss and .stack areas to support C++ new() 
 	// dependence on underlying malloc and other services.
+
 	//duck_obj_p = new Duck;
-	duck_obj_p = &duck_obj;
+	duck_obj_p = new(&duck_obj) Duck;
+	//duck_obj_p = &duck_obj;
+
 	return duck_obj_p;
 }
 
