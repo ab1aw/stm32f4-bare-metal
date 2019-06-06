@@ -97,4 +97,8 @@ Building embedded C++ for ARM targets requires different techniques compared to 
 
 Information about the [newlib-nano](https://www.st.com/content/ccc/resource/technical/document/user_manual/group1/cd/29/43/c5/36/c0/40/bb/Newlib_nano_readme/files/newlib-nano_readme.pdf/jcr:content/translations/en.newlib-nano_readme.pdf)
 
+[Effective C++ Memory Allocation](https://www.embedded.com/design/programming-languages-and-tools/4397314/Effective-C--Memory-Allocation)
 
+[How to Have Polymorphism Without a Heap](https://barrgroup.com/Embedded-Systems/How-To/Polymorphism-No-Heap-Memory)
+
+[Embedded C++ Without the new() operator](https://stackoverflow.com/questions/765459/how-can-you-do-c-when-your-embedded-compiler-doesnt-have-operator-new-or-stl)
