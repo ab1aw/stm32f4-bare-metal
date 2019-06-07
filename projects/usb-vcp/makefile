@@ -28,4 +28,7 @@ SRCS += $(LIBOPENCM3)/lib/usb/usb_control.c
 SRCS += $(LIBOPENCM3)/lib/usb/usb_dwc_common.c
 SRCS += $(LIBOPENCM3)/lib/usb/usb_f107.c
 
+CFLAGS += --std=c99
+
 include ../armf4.mk
+
