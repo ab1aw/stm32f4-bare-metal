@@ -20,7 +20,13 @@
  *    at /dev/ttyACM0, in this case modemmanager might kick in
  *    and try to communicate with the device (thinking it as a modem)
  *    you can remove modemmanager package to fix this issue
+ *
+ * Notes regarding USB driver:
+ *   https://community.st.com/s/question/0D50X00009XkXShSAN/anyone-ever-get-the-stm32f4-virtual-com-port-working-wwindows-10
+ *
+ *
  */
+
 
 
 #include "stm32f4xx.h"
