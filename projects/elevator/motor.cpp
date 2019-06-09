@@ -1,5 +1,6 @@
 #include <tinyfsm.hpp>
 #include "motor.hpp"
+#include "uart.h"
 
 
 // ----------------------------------------------------------------------------
@@ -10,6 +11,17 @@ class Stopped
 : public Motor
 {
   void entry() override {
+	brand.data = (uint8_t *)"Motor: stopped\n\r";
+	brand.data_len = sizeof("Motor: stopped\n\r");
+	tx_complete = 0;
+	bufpos = 0;
+	// enable usart2 tx interrupt
+	USART2->CR1 |= (1 << 7);
+
+	while(tx_complete == 0)
+	{
+		flash(LEDDELAY1);
+	}
     direction = 0;
   };
 };
@@ -18,6 +30,17 @@ class Up
 : public Motor
 {
   void entry() override {
+	brand.data = (uint8_t *)"Motor: moving up\n\r";
+	brand.data_len = sizeof("Motor: moving up\n\r");
+	tx_complete = 0;
+	bufpos = 0;
+	// enable usart2 tx interrupt
+	USART2->CR1 |= (1 << 7);
+
+	while(tx_complete == 0)
+	{
+		flash(LEDDELAY1);
+	}
     direction = 1;
   };
 };
@@ -26,6 +49,17 @@ class Down
 : public Motor
 {
   void entry() override {
+	brand.data = (uint8_t *)"Motor: moving down\n\r";
+	brand.data_len = sizeof("Motor: moving down\n\r");
+	tx_complete = 0;
+	bufpos = 0;
+	// enable usart2 tx interrupt
+	USART2->CR1 |= (1 << 7);
+
+	while(tx_complete == 0)
+	{
+		flash(LEDDELAY1);
+	}
     direction = -1;
   };
 };

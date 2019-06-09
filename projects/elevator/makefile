@@ -1,5 +1,5 @@
 TARGET = elevator
-SRCS = 
+SRCS = uart.c
 CPP_SRCS =  elevator.cpp  main.cpp  motor.cpp
 
 LINKER_SCRIPT = ../../flash/stm32f407.ld
